@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="code.css" />
+
+  <title>mycode</title>
+</head>
+<body>
+  <div class="container">
+    <div class="left">
+      <label>HTML</label>
+      <textarea id="html-code" onkeyup="run()"></textarea>
+
+      <label>CSS</label>
+      <textarea id="css-code" onkeyup="run()"></textarea>
+
+      <label>JavaScript</label>
+      <textarea id="javascript-code" onkeyup="run()"></textarea>
+    </div>
+
+    <div class="right">
+      <iframe id="output"></iframe>
+    </div>
+  </div>
+
+  <script>
+    function run() {
+      let htmlCode = document.getElementById("html-code").value;
+      let cssCode = document.getElementById("css-code").value;
+      let jsCode = document.getElementById("javascript-code").value;
+      let outputFrame = document.getElementById("output").contentWindow.document;
+
+      outputFrame.open();
+      outputFrame.writeln(
+        htmlCode + "<style>" + cssCode + "</style>"
+      );
+
+      outputFrame.contentWindow.eval(jsCode)
+      outputFrame.close();
+    }
+  </script>
+</body>
+</html>
